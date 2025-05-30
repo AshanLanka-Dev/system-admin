@@ -1,0 +1,26 @@
+<table class="info-table">
+  <tr>
+    <td class="title">Full Name</td>
+    <td class="data">{{selectedUser?.fullName || 'N/A'}}</td>
+  </tr>
+  <tr>
+    <td class="title">Email</td>
+    <td class="data">{{selectedUser?.username || 'N/A'}}</td>
+  </tr>
+  <tr>
+    <td class="title">Phone</td>
+    <td class="data">{{selectedUser?.phoneNumberWithCountryCode || 'N/A'}} </td>
+  </tr>
+  <tr>
+    <td class="title">Roles</td>
+    <td class="data">
+      <ng-container *ngIf="selectedUser?.roles?.length; else noRoles">
+        <ng-container *ngFor="let role of selectedUser?.roles; let i = index">
+          {{ role.role }}<span *ngIf="i < selectedUser?.roles.length - 1"> | </span>
+        </ng-container>
+      </ng-container>
+      <ng-template #noRoles>N/A</ng-template>
+    </td>
+  </tr>
+
+</table>

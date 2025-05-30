@@ -1,0 +1,19 @@
+<div class="flex flex-col items-center gap-4 p-4">
+  <!-- Live camera preview -->
+  <video #video autoplay playsinline class="rounded shadow w-full max-w-md"></video>
+
+  <!-- Hidden canvas for capturing -->
+  <canvas #canvas hidden></canvas>
+
+  <!-- Capture Button -->
+  <button (click)="capture()" class="px-4 py-2 bg-blue-600 text-white rounded shadow">
+    Capture Image
+  </button>
+
+  <!-- Captured image preview -->
+  <div *ngIf="capturedImage" class="mt-4">
+    <p class="mb-2 text-center font-medium">Captured Image:</p>
+    <img [src]="capturedImage" alt="Captured" class="rounded shadow max-w-md w-full" />
+  </div>
+</div>
+

@@ -1,0 +1,26 @@
+p{
+  color:#CA8A04 ;
+  border-radius: 10px;
+  border: 1px solid #FEF08A;
+  background-color: #FEFCE9;
+  padding: 10px;
+}
+
+.btn-outer{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2 , 1fr);
+  gap: 10px;
+  margin-top: 25px;
+}
+button{
+  height: 40px;
+  border-radius: 8px;
+  color: var(--light-color);
+}
+.dlt-btn{
+  background-color: var(--danger-color);
+}
+.cansel-btn{
+  background-color: var(--gray-btn-color);
+}

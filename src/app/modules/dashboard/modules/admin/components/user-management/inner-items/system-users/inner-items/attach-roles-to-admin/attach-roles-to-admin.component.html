@@ -1,0 +1,21 @@
+<table class="w-full ">
+  <thead>
+  <tr class="text-left border-b">
+    <th class="py-2">Role</th>
+    <th class="py-2">Attach</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let role of roles" >
+    <td class="py-1">{{ role.role }}</td>
+    <td class="py-1">
+      <app-attach-single-role-to-amin
+        [role]="role"
+        [userId]="userId"
+        (roleChanged)="reloadUsers.emit()"
+      ></app-attach-single-role-to-amin>
+    </td>
+
+  </tr>
+  </tbody>
+</table>

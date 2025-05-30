@@ -1,0 +1,263 @@
+<div class="outer">
+  <div class="inner">
+    <app-dashboard-header></app-dashboard-header>
+    <div class="content-outer">
+      <div class="left-side-menu-outer">
+      </div>
+
+      <!--      <div *ngIf="isActive" class="mobile-menu" (click)="openSideMenu()">-->
+      <!--        <i class="pi pi-arrow-right"></i>-->
+      <!--      </div>-->
+
+      <!--      <div *ngIf="!isActive" class="mobile-menu" (click)="openSideMenu()">-->
+      <!--        <i class="pi pi-arrow-left"></i>-->
+      <!--      </div>-->
+
+
+
+      <div  class="mobile-menu"  (click)="visible = true">
+        <i class="pi pi-arrow-right"></i>
+      </div>
+
+      <!--      <i class="pi pi-bars visible-icon " aria-hidden="true" (click)="visible = true"></i>-->
+
+      <div class="left-side-menu" [ngClass]="{ 'close': isActive }">
+        <div class="top">
+          <ol>
+            <li [routerLink]="'/dashboard/process/home'" routerLinkActive="active-link" ><i class="fas fa-grip-horizontal"></i> <span>  Dashboard  </span></li>
+            <li  *ngIf="isAdmin" [routerLink]="'/dashboard/process/admin/vet-care'" routerLinkActive="active-link"><i class="fa fa-stethoscope"></i> <span> Vet Care </span></li>
+            <li  *ngIf="isAdmin" [routerLink]="'/dashboard/process/admin/online-vet-care'" routerLinkActive="active-link"><i class="fa fa-ambulance"></i> <span>Online Vet Care </span></li>
+            <li  *ngIf="isAdmin" [routerLink]="'/dashboard/process/admin/client-management'" routerLinkActive="active-link"><i class="fas fa-users"></i> <span> Client Management </span></li>
+            <li *ngIf="isAdmin" [routerLink]="'/dashboard/process/admin/user-management'" routerLinkActive="active-link"><i class="fas fa-users-cog"></i> <span>User Management </span></li>
+
+
+          </ol>
+
+          <p-divider/>
+          <ol><span class="title"> OTHERS </span>
+            <li [routerLink]="'/dashboard/process/profile/context/home'"><i class="fas fa-cog"></i> <span>  Profile  </span></li>
+<!--            <li><i class="fas fa-headset"></i> <span> Support  </span></li>-->
+          </ol>
+          <p-divider class="menu-open mb-10"/>
+
+          <!--          <div class="profile-btn mb-10" (click)="toggleMenu($event); menu.toggle($event)">-->
+          <div class="profile-btn mb-10  " (click)="openProfileLinks()">
+
+            <div class="avatar-outer">
+              <img [src]="userAvatar || '/images/user-profile/avatar-1.png'"
+                   alt="user avatar">
+            </div>
+            <span> {{userFullName  | truncate:20}} </span>
+            <i *ngIf="!isOpenProfileLinks" class="pi pi-angle-down"></i>
+            <i *ngIf="isOpenProfileLinks" class="pi pi-angle-up"></i>
+          </div>
+
+          <div *ngIf="isOpenProfileLinks" class="profile-links">
+            <ol>
+              <li (click) = 'logout()'><i class="fas fa-sign-out"></i> <span> Log Out  </span></li>
+            </ol>
+          </div>
+
+
+
+
+          <p-divider class="menu-open mt-6" />
+
+        </div>
+        <div class="bottom">
+          <div class="footer ">
+            <span> &#64;2025 Nazomi </span>
+          </div>
+        </div>
+      </div>
+
+      <!--     Mobile View Side Drawer -->
+      <p-drawer #drawerRef [(visible)]="visible" class="text-clr">
+        <ng-template #headless>
+          <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between px-6 pt-4 shrink-0">
+                      <span class="inline-flex items-center gap-2">
+
+                        <span class="logo-d">
+                        <img src="/images/logo.png " width="120px" alt="logo">
+
+                        </span>
+
+                      </span>
+              <span>
+                     <i class="pi pi-times mr-2 drawer-close " (click)="closeCallback($event)"></i>
+                      </span>
+            </div>
+            <div class="overflow-y-auto">
+              <ul class="list-none p-4 m-0">
+                <li>
+                  <div
+                    pRippley
+                    pStyleClass="@next"
+                    enterFromClass="hidden"
+                    class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
+                  >
+                    <!--                <span class="font-medium text-clr">FAVORITES</span>-->
+
+                  </div>
+                  <ul class="list-none p-0 m-0 overflow-hidden">
+                    <li class="slid-drawer-links "  (click)="closeDrawer()">
+                      <a
+                        pRipple
+                        class="flex items-center cursor-pointer p-4 pb-0 rounded-border "
+                        [routerLink]="'/dashboard/process/home'" routerLinkActive="active">
+                        <i class="fas fa-grip mr-2"></i>
+                        <span class="font-medium  "> Dashboard </span>
+                      </a>
+                    </li>
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/trainer'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-book mr-2"></i>-->
+<!--                        <span class="font-medium ">My Courses</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/user-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-users-cog mr-2"></i>-->
+<!--                        <span class="font-medium ">User Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/trainer-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-chalkboard-user mr-2"></i>-->
+<!--                        <span class="font-medium ">Trainer Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/student-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-user-graduate mr-2"></i>-->
+<!--                        <span class="font-medium ">Student Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/course-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-book-open mr-2"></i>-->
+<!--                        <span class="font-medium ">Course Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/faq-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-trophy mr-2"></i>-->
+<!--                        <span class="font-medium ">FAQ Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/success-story-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-graduation-cap mr-2"></i>-->
+<!--                        <span class="font-medium ">Success Story Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/mail-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-envelope mr-2"></i>-->
+<!--                        <span class="font-medium ">Mail Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="slid-drawer-links"  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        [routerLink]="'/dashboard/process/admin/intake-management'" routerLinkActive="active">-->
+<!--                        <i class="fas fa-people-group mr-2"></i>-->
+<!--                        <span class="font-medium ">Intake Management</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+<!--                    <p-divider></p-divider>-->
+
+<!--                    <li class="slid-drawer-links "  (click)="closeDrawer()">-->
+<!--                      <a-->
+<!--                        pRipple-->
+<!--                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "-->
+<!--                        routerLink="profile/context/home" routerLinkActive="active">-->
+<!--                        <i class="fas fa-cog mr-2"></i>-->
+<!--                        <span class="font-medium "> Profile </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+
+
+                    <p-divider></p-divider>
+                    <li class="slid-drawer-links " (click)="closeDrawer()">
+                      <a
+                        pRipple
+                        class="flex items-center cursor-pointer p-4  pb-0 rounded-border "
+                        routerLink="#" routerLinkActive="active">
+                        <i class="fas fa-sign-out mr-2"></i>
+                        <span class="font-medium "> Log Out </span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </li>
+              </ul>
+              <!--                        <div class="profile-btn  " (click)="openProfileLinks()">-->
+
+              <!--                          <div class="avatar-outer">-->
+              <!--                            <img-->
+              <!--                              src="https://s3-alpha-sig.figma.com/img/3549/2060/43c73910285476d179be5bb225554b88?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ObKup61b5tYTl9BQjxr8jXML635ejkTgGbZp0dGCre9aFLX5s126KhGepsAyZLEXGP2fTiSGDmqhDJFlANr1LDAy-WS1bgtOQcHrsy-Y6l5sdppO2vKiQKZ3ZJzfpPAUiygELHo6ldzzVe~zNzgbdfUFBnWASLI6gF1DaxiJD~h0ITtsHcAsowH0UNXX8Wqz1CUJlffaZFFJ7n5cIX5IG~oCujwAMD63uRLkm4aQQ6WYp7DXqR1xSlCGCvpQGeSXaDOE4YfTY6bodvh~BSNvptt5~rRBb7gJh3ZzdBPCVGh1nc2xJXFolGYdnjgBvcO9z0Dbie2vKYSDFk7ucELBQQ__"-->
+              <!--                              alt="user avatar">-->
+              <!--                          </div>-->
+              <!--                          <span> Hasika Sandaruwan </span>-->
+              <!--                          <i *ngIf="!isOpenProfileLinks" class="pi pi-angle-down"></i>-->
+              <!--                          <i *ngIf="isOpenProfileLinks" class="pi pi-angle-up"></i>-->
+              <!--                        </div>-->
+
+              <!--                        <div *ngIf="isOpenProfileLinks" class="profile-links">-->
+              <!--                          <ol>-->
+              <!--                            <li><i class="fas fa-sign-out"></i> <span> Log Out  </span></li>-->
+              <!--                          </ol>-->
+              <!--                        </div>-->
+            </div>
+          </div>
+        </ng-template>
+      </p-drawer>
+      <!--     Mobile View Side Drawer end -->
+
+
+      <div class="right-context">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<app-scroll-top></app-scroll-top>-->
+

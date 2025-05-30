@@ -1,0 +1,37 @@
+
+<div class="outer" >
+  <div class="inner" >
+    <div class="header mt-3">
+      <div class="welcome-note ">
+        <span> Wellcome Ashen Manilka !  </span>
+      </div>
+    </div>
+
+    <div class="content">
+
+<!--      <app-trainer-cards *ngIf="isTrainer" [statCardData] = dashboardData?.statCards ></app-trainer-cards>-->
+<!--      <app-result-chart *ngIf="isTrainer" [assignmentMarks] = dashboardData?.assigmentMarksDetailList  ></app-result-chart>-->
+      <app-admin-cards    [statCardData] = dashboardData>  </app-admin-cards>
+      <app-revanue-chart   ></app-revanue-chart>
+
+      <div class="all-students-outer ">
+        <div class="text-lg font-bold "> Online Medical Requests </div>
+<!--        <span *ngIf="isTrainer"> All Students </span>-->
+<!--        <app-all-students *ngIf="isTrainer"></app-all-students>-->
+<!--        <span *ngIf="isAdmin"> All Intakes </span>-->
+<!--        <app-all-intakes *ngIf="isAdmin"></app-all-intakes>-->
+
+        <app-pending-online-medical-requests></app-pending-online-medical-requests>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div-->
+<!--  *ngIf="loading"-->
+<!--  class="fixed inset-0 bg-black bg-opacity-70 z-[9999] flex items-center justify-center"-->
+<!--&gt;-->
+<!--  <div class="text-white text-2xl font-semibold">-->
+<!--    <app-prograss-spinner [width]="'80px'"  [height]="'80px'"  > </app-prograss-spinner>-->
+<!--  </div>-->
+<!--</div>-->

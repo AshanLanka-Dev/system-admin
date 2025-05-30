@@ -1,0 +1,78 @@
+$text-color: #555555;
+$dialog-continue-btn-bg-color: #082F49;
+
+:host {
+  --p-progressbar-label-color: var(#ecf0f1); /* New color */
+}
+
+
+
+.table-outer {
+  max-width: 100%;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border: 1px solid #9D9D9D;
+  border-radius: 10px;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.lecture-outer {
+  width: 120px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+
+  .dp-outer {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: cover;
+    }
+  }
+}
+
+.action {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #FEE2E1;
+  color: #AF2324;
+  text-align: center;
+}
+
+.assignments {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  img {
+    width: 20px;
+
+  }
+}
+.student-info{
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  margin-left: 20px;
+  cursor: pointer;
+
+  &:hover{
+    color: var(--primary-color);
+  }
+
+}

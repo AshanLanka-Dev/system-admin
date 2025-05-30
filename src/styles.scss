@@ -1,0 +1,309 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+
+// @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+// @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+@import "primeicons/primeicons.css";
+
+
+:root {
+  --primary-color: #00818E;
+  --secondary-color: #F9A826
+;
+  --light-color:#FFFFFF;
+  --dark-color:black;
+
+  --text-heading-color:#1C1C1C;
+  --secondary-heading-color:#082F49;
+  --p-text-color:#3C3F41;
+
+  --light-gray-color: #F3F4F8;
+  --green-color: #00D68B;
+  --danger-color:#e74c3c;
+
+  --secondary-btn-color:#012C5A;
+  //--secondary-btn-hover-color:#17171A ;
+  --gray-btn-color:#95A5A6;
+
+  --disable-btn-color:#dfe6e9;
+
+  --image-bg:#dfe6e9;
+
+  --p-stepper-separator-active-background:black;
+  --p-button-primary-background:#002D5B;
+
+  --p-progressbar-value-background:#F97316;
+  //--p-progressbar-label-color:#F97316;
+
+
+  --chart-tren-line-color:#fab1a0;
+  --chart-min-bar-color:#fab1a0;
+  --chart-av-bar-color:#ffeaa7;
+  --chart-max-bar-color:#55efc4;
+  --chart-revenue-bar-color:#00b894;
+  --chart-revenue-trend-line-color:#636e72;
+
+}
+
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
+
+:root {
+  // color-scheme: light !important;
+}
+
+/*****************************************************
+	ngx-intl-tel-input Custom styling
+*****************************************************/
+
+ ngx-intl-tel-input input {
+  //margin-bottom: 20px;
+  //padding: 10px;
+  //border-style: solid;
+  //border-width: 1px;
+  //border-color: #c7cace;
+  //border-radius: 6px;
+  font-size: 16px !important;
+}
+//
+//ngx-intl-tel-input.ng-invalid.ng-touched input {
+//  border: 1px solid #F44336;
+//}
+//
+//ngx-intl-tel-input input:hover {
+//  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.24);
+//}
+//
+//ngx-intl-tel-input input:focus {
+//  outline: none !important;
+//  border-color: #353535;
+//  box-shadow: 0 0 0 0 #000;
+//}
+//
+//ngx-intl-tel-input input::-webkit-input-placeholder {
+//  color: #bac2c7;
+//  font-weight: 400;
+//  font-size: 16px;
+//}
+//
+//ngx-intl-tel-input input:-ms-input-placeholder {
+//  color: #bac2c7;
+//  font-weight: 400;
+//  font-size: 16px;
+//}
+//
+//ngx-intl-tel-input input::-ms-input-placeholder {
+//  color: #bac2c7;
+//  font-weight: 400;
+//  font-size: 16px;
+//}
+//
+//ngx-intl-tel-input input::placeholder {
+//  color: #bac2c7;
+//  font-weight: 400;
+//  font-size: 16px;
+//}
+//
+//ngx-intl-tel-input input[disabled] {
+//  background-color: #e5eaf1;
+//}
+
+
+//
+
+.outer{
+  width: 100%;
+  height: auto;
+}
+.inner{
+  width: 90% !important;
+  max-width:1400px !important;
+  margin: auto;
+}
+
+p{
+  font-size:16px ;
+}
+
+.primary-btn{
+  padding: 10px 15px;
+  border-radius: 50px;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-color);
+  font-weight: 400;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .primary-btn{
+    padding: 7px 12px;
+  }
+}
+.heading{
+  h1{
+    font-size: 30px;
+    font-weight: 600;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .heading{
+    h1{
+      font-size: 25px;
+    }
+  }
+}
+
+
+.p-step-title, .p-step-number , {
+
+  color: #1C1C1C ;
+}
+
+p-dialog{
+  z-index: 2147483647 !important;
+}
+
+.p-step{
+  z-index: -100;
+
+}
+:host ::ng-deep .p-dialog {
+  z-index: 1100 !important;
+}
+
+:host ::ng-deep .stepper-desktop {
+  z-index: 1 !important;
+}
+
+//==========================
+// new intl-tel-input-styles
+//==========================
+
+
+.iti {
+  display: block!important;
+  width: 100%!important;
+  position: relative;
+  border-radius: 10px;
+}
+
+.iti .dropdown-menu.country-dropdown {
+  border-radius: 10px;
+  border-color: #c7cace;
+}
+
+.iti .iti__country-list {
+  box-shadow: none;
+  font-size: 12px;
+  margin-left: 0;
+  width: 225px;
+  max-height: 170px;
+}
+
+.iti__flag-container.open + input {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.iti .search-container input {
+  font-size: 15px!important;
+  border-color: #c7cace;
+  border-radius: 0;
+  padding: 5px 10px;
+}
+
+.iti .search-container input:focus {
+  outline: none;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 479px) {
+  .iti .iti__country-list {
+    width: 60vw;
+    font-size: 12px!important;
+  }
+}
+
+@media screen and (min-width: 1024px){
+  ngx-intl-tel-input input::-webkit-input-placeholder {
+    color: #64758B;
+    font-size: 16px;
+  }
+}
+
+ngx-intl-tel-input input {
+  height: 50px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c7cace;
+  border-radius: 5px;
+  font-size: 16px!important;
+  width: 100%!important;
+}
+
+ngx-intl-tel-input.ng-invalid.ng-touched input {
+  border: 1px solid #c0392b;
+  font-size: 16px;
+}
+
+ngx-intl-tel-input input:hover {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.24);
+}
+
+ngx-intl-tel-input input:focus {
+  outline: none !important;
+  border-color: #000;
+  box-shadow: 0 0 0 0 #000;
+}
+
+ngx-intl-tel-input input::-webkit-input-placeholder {
+  color: #64758B;
+  font-size: 16px;
+}
+
+ngx-intl-tel-input input:-ms-input-placeholder {
+  color: #64758B;
+}
+
+ngx-intl-tel-input input::-ms-input-placeholder {
+  color: #64758B;
+}
+
+ngx-intl-tel-input input::placeholder {
+  color: #64758B;
+}
+
+ngx-intl-tel-input input[disabled] {
+  background-color: #e5eaf1;
+}
+

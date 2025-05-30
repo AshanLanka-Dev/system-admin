@@ -1,0 +1,130 @@
+<div class="table-header">
+  <div class="search">
+    <div class="search-input-wrapper">
+      <i class="pi pi-search search-icon"></i>
+      <input
+        pInputText
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchText"
+      />
+    </div>
+  </div>
+  <div class="tool-bar">
+    <app-online-request-tool-bar
+      (reloadTable)="reloadData()"
+    ></app-online-request-tool-bar>
+  </div>
+</div>
+
+<div class="table-outer">
+  <div class="card">
+    <p-table
+      [value]="roles"
+      [paginator]="false"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:10%">#</th>
+          <th style="width:20%">Owner Name</th>
+          <th style="width:20%">Email</th>
+          <th style="width:15%">Pet Type</th>
+          <th style="width:15%">Date</th>
+          <th style="width:20%">Tools</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-q let-i="rowIndex">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ q.username | truncate:30 }}</td>
+          <td>{{ q.email | truncate:30 }}</td>
+          <td>{{ q.petType | truncate:30 }}</td>
+          <td> 05/30/2025 </td>
+          <td>
+            <!--            <button-->
+            <!--              pButton-->
+            <!--              type="button"-->
+            <!--              icon="pi pi-eye"-->
+            <!--              class="p-button-text p-button-sm"-->
+            <!--              (click)="viewRole(q.propertyId)"-->
+            <!--
+
+                    ></button>-->
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-eye"
+              class="p-button-text p-button-sm"
+              pTooltip="View Medical Request"
+              tooltipPosition="top"
+              (click)="viewMedicalRequest(q)"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-face-smile"
+              class="p-button-text p-button-sm"
+              pTooltip="Pet Profile"
+              tooltipPosition="top"
+              (click)="viewPetProfile(q)"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-text p-button-sm p-button-danger"
+              pTooltip="Delete"
+              tooltipPosition="top"
+              (click)="deleteRoleDialogOpen(q.propertyId)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+    <ngx-skeleton-loader
+      *ngIf="loading"
+      count="5"
+      animation="progress-dark"
+      [theme]="{
+        'border-radius': '5px',
+          height: '40px',
+        'background-color': '#ecf0f1',
+      }"
+    />
+  </div>
+
+  <div *ngIf="roles.length === 0 && !loading" class="flex w-full justify-center
+items-center h-[50px] bg-[#f2f2f2] rounded-b-lg">
+    <span class="text-[16px] font-mono font-semibold text-[#777777]">No Roles</span>
+  </div>
+
+</div>
+
+<div class="card flex justify-center">
+  <p-dialog header="View Medical Request" [modal]="true" [(visible)]="visibleViewMedicalRequestDialogBox" (onHide)="onViewMedicalRequestDialogHide()" [style]="{ width: '45rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+    <!--    <app-update-role-->
+    <!--      [selectedRole]= selectedRole-->
+    <!--      (updateRole)="reloadData()">-->
+    <!--    </app-update-role>-->
+    <app-view-medical-request></app-view-medical-request>
+  </p-dialog>
+</div>
+
+
+<!--delete confirm dialog box-->
+<div class="card flex justify-center">
+  <p-dialog header="Delete Confirmation" [modal]="true" [(visible)]="visibleDeleteRoleDialogBox" [style]="{ width: '26rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  >
+    <app-delete-dialog-content
+      (cansel)="canselDelete()"
+      (deleteConfirmed)="deleteRole()"
+    >
+    </app-delete-dialog-content>
+  </p-dialog>
+</div>

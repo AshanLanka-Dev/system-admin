@@ -1,0 +1,28 @@
+
+<div class="buttons">
+  <!-- Add buttons if needed -->
+  <button class="refresh-btn " (click)="refreshList()">
+    <i class="fa-solid fa-arrows-rotate !text-[18px]"></i>
+  </button>
+  <!--  <button class="log-btn" (click)="toggleNewRoleLogDialog()" > View Log</button>-->
+  <button class="add-btn" (click)="toggleNewRoleDialog()">
+    <i class="pi pi-plus"></i>
+    Add New Receptionists
+  </button>
+</div>
+
+
+<div class="card flex justify-center">
+  <p-dialog header="Create Receptionists"  [(visible)]="visibleRoleDialog" [modal]="true"  (onHide)="onCreateRoleDialogHide()" [style]="{ width: '25rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+<!--    <app-new-user-->
+<!--      (createNewUser) = "submitNewUser()"-->
+<!--    ></app-new-user>-->
+    <app-new-recetionist></app-new-recetionist>
+  </p-dialog>
+</div>
+
+<!--<div class="card flex justify-center">-->
+<!--  <p-dialog header="Logs" [(visible)]="visibleRoleLogDialog" [modal]="true" [style]="{ width: '25rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">-->
+<!--    <app-view-user-log></app-view-user-log>-->
+<!--  </p-dialog>-->
+<!--</div>-->

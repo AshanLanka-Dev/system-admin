@@ -1,0 +1,69 @@
+<div *ngIf="!isLoading()" class="flex flex-col w-full sm:ps-4 sm:pe-4 sm:pb-4">
+  <hr>
+  <input
+    type="file"
+    #fileInput
+    hidden
+    (change)="onFileChange($event)"
+    accept="image/png, image/jpeg, image/jpg, image/svg+xml"
+  />
+
+  <div *ngIf="uploadType() === ImageType.BEGINNING"
+       (click)="openFilePicker()"
+       class="w-full mt-6 border rounded-xl flex flex-col justify-center items-center p-8 cursor-pointer">
+    <i class="fa-solid fa-cloud-arrow-up text-[#B9B9B9] text-[60px]"></i>
+    <div class="w-full flex justify-center text-center items-center mt-3 text-[#B9B9B9] font-semibold text-[14px]">
+      Upload Your Image From Gallery
+    </div>
+  </div>
+
+  <div *ngIf="uploadType() === ImageType.PROCESSING"
+       class="w-full flex flex-col border rounded-xl justify-center items-center mt-6">
+    <image-cropper
+      [imageBase64]="imageChangedEvent!"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      class="rounded-xl m-4"
+    >
+    </image-cropper>
+    <div class="flex w-full items-center justify-between bg-[#B7B7B7] rounded-b-xl py-2 px-2">
+      <button
+        class="sm:py-2 py-1 rounded-xl text-[#777777] font-semibold bg-white text-[14px] px-3"
+        (click)="openFilePicker()"
+      >Change Photo
+      </button>
+      <button
+        class="sm:py-2 py-1 rounded-xl text-[#777777] font-semibold bg-white text-[14px] px-3"
+        (click)="saveCroppedImage()"
+      >Save
+      </button>
+    </div>
+  </div>
+  <div *ngIf="uploadType() === ImageType.SAVED" class="w-full flex justify-center mt-6 items-center">
+    <div class="md:w-[200px] md:h-[200px] w-[150px] h-[150px] rounded-full md:p-3 p-1 border-2 relative">
+      <img
+        class="w-full h-full rounded-full object-cover"
+        [src]="imageUrl"
+        (error)="imageError()"
+        alt="Profile_Img">
+      <div
+        (click)="editSavedImage()"
+        class="md:w-[35px] md:h-[35px] w-[28px] h-[28px] rounded-xl bg-[#E5E7EB] flex justify-center
+            items-center absolute bottom-1 md:right-4 right-2 cursor-pointer">
+        <i class="pi pi-pen-to-square md:text-[15px] text-[13px]"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-skeleton-loader
+  *ngIf="isLoading()"
+  count="1"
+  animation="progress-dark"
+  [theme]="{
+        'border-radius': '5px 5px 0 0',
+          height: '150px',
+        'background-color': '#ecf0f1',
+      }"
+/>

@@ -1,0 +1,10 @@
+<div class="chart-outer">
+  <div class="card flex justify-between">
+<!--   <span class="yearly-revenue"> {{this.returnYear(this.date)}} TOTAL REVENUE : LKR {{yearRevenue}}.00  </span>-->
+   <span class="yearly-revenue"> {{this.returnYear(this.date)}} TOTAL REVENUE : LKR 500000.00  </span>
+    <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" placeholder="Select Year" (onSelect)="onYearChange($event)" />
+  </div>
+
+
+  <p-chart type="line" [data]="data" [options]="options"  />
+</div>

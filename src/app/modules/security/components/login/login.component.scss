@@ -1,0 +1,31 @@
+.full-width {
+  width: 100%;
+}
+.tel {
+  height: 93px;
+}
+.custom {
+  width: 100% !important;
+  border: 1px solid red;
+}
+
+//   :host ::ng-deep .custom {
+//     width: 300px !important;
+//     height: 50px !important;
+//   }
+
+//   :host ::ng-deep .custom .iti {
+//     width: 100% !important;
+//   }
+
+//   :host ::ng-deep .custom input {
+//     width: 100% !important;
+//   }
+
+::ng-deep ngx-intl-tel-input input {
+  font-size: 13px!important;
+}
+::ng-deep ngx-intl-tel-input input::-webkit-input-placeholder {
+  color: #64758B;
+  font-size: 13px;
+}

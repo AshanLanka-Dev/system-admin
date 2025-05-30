@@ -1,0 +1,14 @@
+<div class="stat-card-outer">
+  <div class="stat-card" *ngFor="let card of statCards">
+    <div class="top">
+      <div class="icon-outer">
+        <img [src]="card.icon" alt="card-icon">
+      </div>
+      <span> {{ card.title }} </span>
+    </div>
+    <div class="bottom">
+      <span> {{ card.value }} </span>
+    </div>
+  </div>
+</div>
+

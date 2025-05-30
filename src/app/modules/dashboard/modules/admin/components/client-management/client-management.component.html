@@ -1,0 +1,20 @@
+<app-breakcrumb-for-lms
+  lastItem="Client Management"/>
+
+<app-admin-header [header] = "'Client Management'" ></app-admin-header>
+
+<div class="card w-full">
+  <p-tabView [activeIndex]="activeTabIndex" (onChange)="handleTabChange($event)">
+    <p-tabPanel header="All Clients">
+    </p-tabPanel>
+    <p-tabPanel header="Pets">
+    </p-tabPanel>
+<!--    <p-tabPanel header="Receptionists">-->
+<!--    </p-tabPanel>-->
+  </p-tabView>
+</div>
+<div class="p-5">
+  <router-outlet></router-outlet>
+</div>
+
+

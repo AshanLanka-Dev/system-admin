@@ -1,0 +1,19 @@
+<app-breakcrumb-for-lms
+  lastItem=" User Management"/>
+
+<app-admin-header [header] = "'User Management'" ></app-admin-header>
+
+<div class="card w-full">
+  <p-tabView [activeIndex]="activeTabIndex" (onChange)="handleTabChange($event)">
+    <p-tabPanel header="User Roles">
+    </p-tabPanel>
+    <p-tabPanel header="System Users">
+    </p-tabPanel>
+    <p-tabPanel header="Receptionists">
+    </p-tabPanel>
+  </p-tabView>
+</div>
+<div class="p-5">
+  <router-outlet></router-outlet>
+</div>
+

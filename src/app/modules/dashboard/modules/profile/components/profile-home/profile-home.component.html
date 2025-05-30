@@ -1,0 +1,426 @@
+<div *ngIf="!isLoading()" class="flex flex-col justify-center items-center w-full relative px-6 py-4">
+  <div class="flex w-full">
+    <h1 class="text-[25px] font-semibold">Profile</h1>
+  </div>
+  <div class="flex w-full text-[15px] font-normal text-[#555555]">
+    <span>
+      Customize Your Profile, Personal Information, Date of Birth,
+      NIC Number, Gender.
+    </span>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="formSubmit()" class="flex flex-col w-full border rounded-xl mt-6 py-6">
+    <div class="flex w-full text-[20px] font-medium px-4">
+      <h1>Profile Information</h1>
+    </div>
+    <div class="flex w-full text-[15px] font-normal text-[#555555] mt-1 px-4">
+      <span>
+        View and edit your personal profile information, including your name
+        Profile Picture.
+      </span>
+    </div>
+    <div class="flex items-center w-full px-4">
+      <div class="w-full flex items-center gap-3 mt-3">
+        <div (mouseenter)="profileHoverEnter()"
+             (mouseleave)="profileHoverLeave()"
+             class="sm:w-[80px] sm:h-[80px] w-[60px] h-[60px]
+        rounded-full border-2 relative cursor-pointer">
+          <img
+            class="w-full h-full object-cover rounded-full"
+            [src]="imageUrl()"
+            (error)="imageError()"
+            alt="avatar">
+          <div *ngIf="isHover()" (click)="openProfileUpload()" class="absolute top-0 left-0 rounded-full w-full
+          h-full flex items-center justify-center">
+            <div class="flex absolute w-full h-full bg-black opacity-40 rounded-full"></div>
+            <i class="pi pi-camera text-[20px] text-white z-50"></i>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="sm:text-[18px] text-[14px] font-semibold">{{form.get('fullName')?.value}}</span>
+          <span class="text-[#555555] text-[12px]">Email : {{ form.get('email')?.value }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-b my-8"></div>
+
+    <div class="flex flex-col w-full px-4">
+      <div class="flex w-full">
+        <h1 class="text-[20px] font-medium">Personal Information</h1>
+      </div>
+      <div class="flex w-full">
+        <span class="flex w-full text-[15px] font-normal text-[#555555] mt-1">
+          Manage your information details, including email address, date of birth,
+          mobile number, gender.
+        </span>
+      </div>
+      <div *ngIf="!neccesoryData().nic || !neccesoryData().gender || !neccesoryData().dob"
+           class="flex items-center justify-start w-full min-h-[50px] bg-red-300 gap-3 mb-3 rounded-r-lg mt-2 border-l-[15px] border-red-500 ps-3">
+        <span class="text-[15px]"><strong>Reminder:</strong> Please fill out the required fields: NIC, Gender, and Date of Birth.</span>
+      </div>
+      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">
+        <div class="md:w-1/2 w-full flex justify-start items-center">
+          <div class="flex-1 flex flex-col text-[15px] gap-1">
+            <label for="displayName">Display Name</label>
+            <input type="text" pInputText
+                   formControlName="displayName"
+                   placeholder="Enter a Display Name"
+                   class="text-[15px] h-[50px]"
+                   id="displayName"/>
+          </div>
+        </div>
+        <div class="md:w-1/2 w-full flex justify-end items-center">
+          <div class="flex-1 flex flex-col text-[15px] gap-1">
+            <label for="fullName">Full Name</label>
+            <input type="text" pInputText
+                   formControlName="fullName"
+                   placeholder="Enter Your Full Name"
+                   class="text-[15px] h-[50px]"
+                   id="fullName"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">
+        <div class="md:w-1/2 w-full flex justify-start items-center">
+          <div class="flex-1 flex flex-col text-[15px] gap-1">
+            <label for="email">Email Address</label>
+            <input pInputText placeholder="Enter Your Email Address"
+                   formControlName="email"
+                   class="text-[15px] h-[50px]"
+                   id="email" aria-describedby="email-help" readonly/>
+          </div>
+        </div>
+        <div class="md:w-1/2 w-full flex justify-end items-center">
+          <div class="flex-1 flex flex-col text-[15px] gap-1">
+            <label for="nic">NIC Number</label>
+            <input pInputText placeholder="Enter Your NIC"
+                   formControlName="nic"
+                   class="text-[15px] h-[50px]"
+                   id="nic" aria-describedby="nic-help"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">
+        <div class="md:w-1/2 w-full flex justify-start items-center">
+          <div class="flex-1 flex flex-col text-[15px] gap-1 !w-full">
+            <label for="dob">Date of Birth</label>
+            <p-datepicker formControlName="dob"
+                          placeholder="Pick Date of Birth"
+                          [style]="{ 'width': '100%', 'height': '50px' }"
+                          inputId="dob"/>
+          </div>
+        </div>
+        <div class="md:w-1/2 w-full flex justify-center items-center">
+          <div class="flex-1 flex flex-col text-[15px] gap-1">
+            <label for="number">Phone Number</label>
+            <div class="w-full">
+              <ngx-intl-tel-input
+                formControlName="phoneNumber"
+                [cssClass]="'custom'"
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[
+          SearchCountryField.Iso2,
+          SearchCountryField.Name
+        ]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.Japan"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="separateDialCode"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="phone"
+                id="number"
+              >
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">
+        <div class="md:w-1/2 w-full flex justify-center items-center">
+          <div class="flex-1 flex flex-col text-[15px] gap-1">
+            <label for="gender">Gender</label>
+            <p-select [options]="genderData()"
+                      formControlName="gender" placeholder="Select a Gender"
+                      [editable]="false" id="gender"
+                      optionLabel="label" optionValue="value"
+                      class="!w-full text-[15px] !text-black h-[50px] flex items-center justify-start"/>
+          </div>
+        </div>
+        <div class="md:w-1/2 w-full flex justify-center items-center"></div>
+      </div>
+    </div>
+
+<!--    <div *ngIf="isAcademicVisible()" class="border-b my-8"></div>-->
+
+<!--    <div *ngIf="isAcademicVisible()" class="flex flex-col w-full px-4">-->
+<!--      <div class="flex w-full -mt-1">-->
+<!--        <h1 class="text-[18px] font-medium">Academic Information</h1>-->
+<!--      </div>-->
+<!--      <div class="flex w-full mt-1">-->
+<!--        <span class="flex w-full text-[15px] font-normal text-[#555555]">-->
+<!--          This section provides essential information relevant to your academic profile and learning environment.-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        *ngIf="!isAcademicInfo().highQualification || !isAcademicInfo().lanLevel || !isAcademicInfo().teachingExperience || !isAcademicInfo().specialization || !isAcademicInfo().biography"-->
+<!--        class="flex items-center justify-start w-full min-h-[50px] bg-red-300 gap-3 mb-3 rounded-r-lg mt-2 border-l-[15px] border-red-500 ps-3">-->
+<!--        <span class="text-[15px]"><strong>Reminder:</strong> If you want to add academic information, Please fill all the data regarding to academic information section</span>-->
+<!--      </div>-->
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="md:w-1/2 w-full flex justify-start items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="hiQ">Highest Qualification</label>-->
+<!--            <input pInputText placeholder="Enter Your Highest Qualification"-->
+<!--                   formControlName="highQualification"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="hiQ" aria-describedby="HiQ-help"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="md:w-1/2 w-full flex justify-end items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="lanLevel">Japanese Language Level</label>-->
+<!--            <p-select [options]="lanLevelsData()"-->
+<!--                      formControlName="lanLevel" placeholder="Select a Language Level"-->
+<!--                      [editable]="false" id="lanLevel"-->
+<!--                      optionLabel="label" optionValue="value"-->
+<!--                      class="!w-full text-[15px] !text-black h-[50px] flex items-center justify-start"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="md:w-1/2 w-full flex justify-start items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="teachingEx">Teaching Experience</label>-->
+<!--            <p-inputnumber [(ngModel)]="number" inputId="teachingEx"-->
+<!--                           formControlName="teachingExperience"-->
+<!--                           placeholder="Enter Years of experience"-->
+<!--                           suffix=" Years"-->
+<!--                           class="text-[14px] h-[50px]"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="md:w-1/2 w-full flex justify-end items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="specialization">Specialization</label>-->
+<!--            <p-select [options]="specializationData()"-->
+<!--                      formControlName="specialization" placeholder="Select a Specialization"-->
+<!--                      [editable]="false" id="specialization"-->
+<!--                      optionLabel="label" optionValue="value"-->
+<!--                      class="!w-full text-[15px] !text-black h-[50px] flex items-center justify-start"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="w-full flex justify-start items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="biography">Biography</label>-->
+<!--            <textarea rows="3" pInputText placeholder="Type Here..."-->
+<!--                      formControlName="biography"-->
+<!--                      class="text-[15px] min-h-[50px] w-full"-->
+<!--                      id="biography" aria-describedby="biography-help"></textarea>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="border-b my-8"></div>-->
+
+<!--    <div class="flex flex-col w-full px-4">-->
+<!--      <div class="flex w-full -mt-1">-->
+<!--        <h1 class="text-[18px] font-medium">Employment Information</h1>-->
+<!--      </div>-->
+<!--      <div class="flex w-full mt-1">-->
+<!--        <span class="flex w-full text-[15px] font-normal text-[#555555]">-->
+<!--          Access important details related to your employment status, roles, responsibilities, and other relevant work-related information.-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <div *ngIf="!employmentTempData().employmentType || !employmentTempData().designation"-->
+<!--           class="flex items-center justify-start w-full min-h-[50px] bg-red-300 gap-3 mb-3 rounded-r-lg mt-2 border-l-[15px] border-red-500 ps-3">-->
+<!--        <span class="text-[15px]"><strong>Reminder:</strong> If you want to add employment information, Please fill all the data regarding to employment information section</span>-->
+<!--      </div>-->
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="md:w-1/2 w-full flex justify-start items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="employmentType">Employment Type</label>-->
+<!--            <p-select [options]="employmentData()"-->
+<!--                      formControlName="employmentType" placeholder="Select a Employment Type"-->
+<!--                      [editable]="false" id="employmentType"-->
+<!--                      optionLabel="label" optionValue="value"-->
+<!--                      class="!w-full text-[15px] !text-black h-[50px] flex items-center justify-start"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="md:w-1/2 w-full flex justify-end items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="designation">Designation</label>-->
+<!--            <input pInputText placeholder="Enter Your Designation"-->
+<!--                   formControlName="designation"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="designation" aria-describedby="designation-help"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="md:w-1/2 w-full flex justify-start items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="dateJoined">Date Joined</label>-->
+<!--            <input pInputText placeholder="Your Joined Date"-->
+<!--                   formControlName="dateJoined"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="dateJoined" aria-describedby="dateJoined-help" readonly/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="md:w-1/2 w-full flex justify-end items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="activeStatus">Active Status</label>-->
+<!--            <input pInputText placeholder="Your Active Status"-->
+<!--                   formControlName="activeStatus"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="activeStatus" aria-describedby="activeStatus-help" readonly/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="border-b my-8"></div>-->
+
+<!--    <div class="flex flex-col w-full px-4">-->
+<!--      <div class="flex w-full -mt-1">-->
+<!--        <h1 class="text-[18px] font-medium">Address Information</h1>-->
+<!--      </div>-->
+<!--      <div class="flex w-full mt-1">-->
+<!--        <span class="flex w-full text-[15px] font-normal text-[#555555]">-->
+<!--          View and edit your location details including residential address for academic correspondence and institutional records.-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <div *ngIf="!addressData().country || !addressData().province || !addressData().district || !addressData().city ||-->
+<!--!addressData().street || !addressData().postalCode"-->
+<!--           class="flex items-center justify-start w-full min-h-[50px] bg-red-300 gap-3 mb-3 rounded-r-lg mt-2 border-l-[15px] border-red-500 ps-3">-->
+<!--        <span class="text-[15px]"><strong>Reminder:</strong> If you want to add address information, Please fill all the data regarding to address information section</span>-->
+<!--      </div>-->
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="md:w-1/2 w-full flex justify-center items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="country">Country</label>-->
+<!--            <p-select [options]="allCountries"-->
+<!--                      formControlName="country"-->
+<!--                      optionLabel="name" [filter]="true"-->
+<!--                      filterBy="name"-->
+<!--                      placeholder="Select a Country"-->
+<!--                      class="w-full h-[50px] flex items-center justify-start" id="country">-->
+<!--              <ng-template #selectedItem let-selectedOption>-->
+<!--                <div class="flex items-center gap-2">-->
+<!--                  <img [src]="selectedOption.flag" [class]="'flag flag-' + selectedCountry.code.toLowerCase()"-->
+<!--                       style="width: 22px; height: 18px"/>-->
+<!--                  <div>{{ selectedOption.name }}</div>-->
+<!--                </div>-->
+<!--              </ng-template>-->
+<!--              <ng-template let-country #item>-->
+<!--                <div class="flex items-center gap-2">-->
+<!--                  <img [src]="country.flag" [class]="'flag flag-' + country.code.toLowerCase()"-->
+<!--                       style="width: 22px; height: 18px"/>-->
+<!--                  <div>{{ country.name }}</div>-->
+<!--                </div>-->
+<!--              </ng-template>-->
+<!--            </p-select>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="md:w-1/2 w-full flex justify-end items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="province">State</label>-->
+<!--            <input pInputText placeholder="Enter Your State"-->
+<!--                   formControlName="province"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="province" aria-describedby="province-help"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="md:w-1/2 w-full flex justify-start items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="district">District</label>-->
+<!--            <input pInputText placeholder="Enter Your District"-->
+<!--                   formControlName="district"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="district" aria-describedby="district-help"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="md:w-1/2 w-full flex justify-end items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="city">City</label>-->
+<!--            <input pInputText placeholder="Enter Your City"-->
+<!--                   formControlName="city"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="city" aria-describedby="city-help"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="flex w-full mt-6 lg:gap-6 gap-4 md:flex-row flex-col">-->
+<!--        <div class="md:w-1/2 w-full flex justify-start items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="street">Street</label>-->
+<!--            <input pInputText placeholder="Enter Your Street"-->
+<!--                   formControlName="street"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="street" aria-describedby="street-help"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="md:w-1/2 w-full flex justify-end items-center">-->
+<!--          <div class="flex-1 flex flex-col text-[15px] gap-1">-->
+<!--            <label for="postalCode">Postal Code</label>-->
+<!--            <input pInputText placeholder="Enter Your Postal Code"-->
+<!--                   formControlName="postalCode"-->
+<!--                   class="text-[15px] h-[50px]"-->
+<!--                   id="postalCode" aria-describedby="postalCode-help"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="border-b my-8"></div>-->
+
+    <div class="w-full flex px-4 mt-5">
+      <button type="submit" class="p-button p-button-primary h-[45px] mt-1 w-full text-white
+py-2 flex rounded-lg items-center justify-center"
+              [ngClass]="isLoading() ? 'py-0' : ''"
+              [disabled]="!formChanged() || isLoading()"
+              [ngStyle]="{
+          'background-color': isLoading() ? 'var(--disable-btn-color)' :
+                             !formChanged() ? 'var(--disable-btn-color)' :
+                             'var(--secondary-btn-color)',
+          'border': (!formChanged() || isLoading()) ? 'none' : '1px solid var(--secondary-btn-border-color)'
+        }"
+      >
+        <app-prograss-spinner [width]="'30px'" [height]="'30px'" class="mt-1"
+                              *ngIf="isLoading(); else submitText"></app-prograss-spinner>
+        <ng-template #submitText>Submit</ng-template>
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<!--<ngx-skeleton-loader-->
+<!--  *ngIf="isLoading()"-->
+<!--  count="1"-->
+<!--  animation="progress-dark"-->
+<!--  [theme]="{-->
+<!--        'border-radius': '5px 5px 0 0',-->
+<!--          height: '500px',-->
+<!--        'background-color': '#ecf0f1',-->
+<!--      }"-->
+<!--/>-->
+
+<p-dialog header="Manage Profile Picture" (onHide)="avatarDialogHide()" [(visible)]="visibleDialog" [modal]="true"
+          [breakpoints]="{ '1199px': '60vw', '575px': '90vw' }" [style]="{ width: '60vw' }" [draggable]="false" [resizable]="false">
+  <app-avatar-dialog [userId]="selectedUserId()" (isClosed)="isClosedMethod($event)"></app-avatar-dialog>
+</p-dialog>

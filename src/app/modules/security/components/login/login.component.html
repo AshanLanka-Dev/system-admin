@@ -1,0 +1,116 @@
+<p-toast></p-toast>
+
+<div class="w-full flex overflow-y-hidden">
+  <!-- Left side illustration or branding -->
+  <div class="lg:w-[60%] md:w-[50%] hidden md:block relative h-screen">
+    <app-right-side></app-right-side>
+  </div>
+
+  <!-- Right side login form -->
+  <div class="lg:w-[40%] md:w-[50%] w-full h-screen">
+    <!-- Header Welcome -->
+    <div class="w-full lg:h-[25%] h-[35%] flex flex-col justify-end items-center lg:pb-6 pb-4">
+      <div
+        class="text-[30px] md:w-[72%] w-[85%] text-center font-roboto font-semibold leading-[35px] flex items-center justify-center">
+        <span>Welcome Back!</span>
+      </div>
+      <span class="md:w-[70%] w-[85%] text-center text-[13px] font-roboto mt-3 leading-[15px] font-light">
+        Please log in to access your Vet Care admin dashboard and manage veterinary services efficiently.
+      </span>
+    </div>
+
+    <!-- Login Form -->
+    <div class="w-full lg:h-[75%] h-[65%] overflow-y-auto flex flex-col justify-start items-center pt-2 pb-4">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="md:w-[70%] w-[80%] flex flex-col justify-start items-center gap-3">
+
+        <div *ngIf="invalidState" class="card w-full">
+          <p-message *ngIf="errorMessage" severity="warn" size="small" [style]="{ fontSize: '8px' , fontWeight:100 }">
+            {{ errorMessage }}
+          </p-message>
+        </div>
+
+        <!-- Email -->
+        <p-iconfield styleClass="w-full h-[50px]">
+          <p-inputicon class="pi pi-user !text-[#575757]"></p-inputicon>
+          <input
+            pInputText
+            class="w-full text-[13px] h-full !border-[#575757]"
+            formControlName="email"
+            placeholder="Email Address"
+          />
+        </p-iconfield>
+
+        <!-- Password -->
+        <p-iconfield styleClass="w-full h-[50px]">
+          <p-inputicon class="pi pi-lock !text-[#575757]"></p-inputicon>
+          <input
+            pInputText
+            [type]="isEyeNewHidden ? 'password' : 'text'"
+            class="w-full text-[13px] h-full !border-[#575757]"
+            formControlName="password"
+            placeholder="Enter Password"
+          />
+          <p-inputicon
+            (click)="eyeChangeNewPassword()"
+            [ngClass]="isEyeNewHidden ? 'pi pi-eye-slash cursor-pointer' : 'pi pi-eye cursor-pointer'"
+            class="!text-[#575757]">
+          </p-inputicon>
+        </p-iconfield>
+
+
+
+        <!-- Forgot password -->
+        <div class="w-full flex justify-end items-center">
+          <a routerLink="/security/process/forgot-password" class="underline font-semibold text-[11px]">Forgot Password?</a>
+        </div>
+
+        <!-- Submit -->
+        <div class="flex flex-col items-center justify-center mt-6 w-full gap-5">
+          <button type="submit" [disabled]="loading " class="h-[50px] rounded-lg bg-[var(--primary-color)] w-full text-white font-semibold text-[13px]">
+
+            <div class="flex items-center justify-center">
+              <app-prograss-spinner *ngIf="loading; else signInText"></app-prograss-spinner>
+              <ng-template #signInText>Sign In</ng-template>
+            </div>
+
+          </button>
+
+          <button type="button" class="h-[50px] rounded-lg bg-[var(--gray-btn-color)] w-full text-white font-semibold text-[13px]">
+
+            <div class="flex items-center justify-center"> View Pet Queue </div>
+
+          </button>
+        </div>
+      </form>
+
+      <!-- OR Section -->
+<!--      <span class="my-6 text-[12px] text-[#575757]">Sign In with Others</span>-->
+
+      <!-- Google Sign In -->
+<!--      <div class="flex items-center justify-center md:w-[70%] w-[80%]">-->
+<!--        <button-->
+<!--          class="h-[50px] rounded-lg border border-[#575757] w-full font-semibold text-[13px] flex items-center justify-center gap-2">-->
+<!--          <img-->
+<!--            class="object-cover h-6 w-6"-->
+<!--            src="/images/security/google-icon.png"-->
+<!--            alt="google_icon" />-->
+<!--          <span>Sign In with Google</span>-->
+<!--        </button>-->
+<!--      </div>-->
+
+      <!-- Sign Up Link -->
+<!--      <span class="my-6 text-[12px] text-[#575757]">-->
+<!--        Don't have an account?-->
+<!--        <a class="underline font-bold" routerLink="/security/process/register">Sign Up</a>-->
+<!--      </span>-->
+
+      <!-- Terms -->
+<!--      <div class="md:w-[70%] w-[80%] text-center mt-6 text-[12px]">-->
+<!--        By Signing in, you agree to Japan LMS-->
+<!--        <a href="#" class="underline">privacy notice</a>,-->
+<!--        <a href="#" class="underline">conditions of use</a> and-->
+<!--        <a href="#" class="underline">cookies & internet advertising</a>.-->
+<!--      </div>-->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="w-full h-screen flex overflow-y-hidden">
+
+  <div class="lg:w-[60%] w-[50%] hidden md:block relative h-screen">
+    <app-right-side></app-right-side>
+  </div>
+  <div class="lg:w-[40%] md:w-[50%] w-full h-screen">
+    <div class="w-full lg:h-[25%] h-[35%] flex flex-col justify-end items-center lg:pb-6 pb-4">
+      <div
+        class="text-[30px] md:w-[72%] w-[82%] text-center font-roboto font-semibold leading-[35px] flex items-center justify-center">
+        <span>Join Us & Master Japanese!</span>
+      </div>
+      <span class="md:w-[70%] w-[85%] text-center text-[13px] font-roboto mt-3 leading-[15px] font-light">
+          Create your account to access expert-led JLPT N5–N1 courses, interactive lessons, and real exam simulations.
+          Start your journey to fluency today!
+        </span>
+    </div>
+    <div class="w-full lg:h-[75%] h-[65%] overflow-y-auto flex flex-col justify-start items-center pt-2 pb-4">
+      <form [formGroup]="registerForm" (ngSubmit)="register()"
+            class="md:w-[70%] w-[80%] flex flex-col justify-start items-center gap-3">
+
+
+        <div *ngIf="invalidState" class="card w-full">
+          <p-message *ngIf="errorMessage" severity="warn" size="small" [style]="{ fontSize: '8px' , fontWeight:100 }">
+            {{ errorMessage }}
+          </p-message>
+        </div>
+
+        <!-- Full Name -->
+        <p-iconfield styleClass="w-full h-[50px]">
+          <p-inputicon class="pi pi-user !text-[#575757]"/>
+          <input class="w-full text-[13px] h-full !border-[#575757]" pInputText formControlName="fullName"
+                 placeholder="Full Name"/>
+        </p-iconfield>
+        <div *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid"
+             class="text-red-500 text-xs mt-1 w-full">
+          <div *ngIf="registerForm.get('fullName')?.errors?.['required']">Full name is required</div>
+        </div>
+
+        <!-- Email -->
+        <p-iconfield styleClass="w-full h-[50px]">
+          <p-inputicon class="pi pi-envelope !text-[#575757]"/>
+          <input class="w-full text-[13px] h-full !border-[#575757]" pInputText formControlName="email"
+                 placeholder="Email Address"/>
+        </p-iconfield>
+        <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
+             class="text-red-500 text-xs mt-1 w-full">
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</div>
+          <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format</div>
+        </div>
+
+        <!-- Phone -->
+        <ngx-intl-tel-input
+          [cssClass]="'custom w-full !h-[50px] !border-[#000]'"
+          class="w-full"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+          [selectFirstCountry]="true"
+          [selectedCountryISO]="CountryISO.Japan"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          [separateDialCode]="separateDialCode"
+          [numberFormat]="PhoneNumberFormat.National"
+          formControlName="phone">
+        </ngx-intl-tel-input>
+        <div *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid"
+             class="text-red-500 text-xs mt-1 w-full">
+          <div *ngIf="registerForm.get('phone')?.errors?.['required']">Phone is required</div>
+        </div>
+
+
+        <!-- New Password -->
+        <p-iconfield styleClass="w-full h-[50px]">
+          <p-inputicon class="pi pi-lock !text-[#575757]"/>
+          <input [type]="isEyeNewHidden ? 'password' : 'text'" class="w-full text-[13px] h-full !border-[#575757]"
+                 pInputText formControlName="password" placeholder="Enter New Password"/>
+          <p-inputicon (click)="togglePasswordVisibility()"
+                       [ngClass]="isEyeNewHidden ? 'pi pi-eye-slash cursor-pointer' : 'pi pi-eye cursor-pointer'"
+                       class="!text-[#575757]"/>
+        </p-iconfield>
+        <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+             class="text-red-500 text-xs mt-1 w-full">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+        </div>
+
+        <!-- Confirm Password -->
+        <p-iconfield styleClass="w-full h-[50px]">
+          <p-inputicon class="pi pi-lock !text-[#575757]"/>
+          <input [type]="isEyeConfirmHidden ? 'password' : 'text'" class="w-full text-[13px] h-full !border-[#575757]"
+                 pInputText formControlName="confirmPassword" placeholder="Confirm Password"/>
+          <p-inputicon (click)="toggleConfirmPasswordVisibility()"
+                       [ngClass]="isEyeConfirmHidden ? 'pi pi-eye-slash cursor-pointer' : 'pi pi-eye cursor-pointer'"
+                       class="!text-[#575757]"/>
+        </p-iconfield>
+        <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid"
+             class="text-red-500 text-xs mt-1 w-full">
+          <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Conform Password is required</div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex items-center justify-center mt-6 w-full">
+          <button type="submit" class="h-[50px] rounded-lg bg-[#082F49] w-full text-white font-semibold text-[13px]">
+            <app-prograss-spinner *ngIf="loading; else signUpText"></app-prograss-spinner>
+            <ng-template #signUpText>Sign Up</ng-template>
+
+          </button>
+        </div>
+      </form>
+
+
+      <span class="my-6 text-[12px] text-[#575757]">Sign Up with Others</span>
+
+      <div class="flex items-center justify-center md:w-[70%] w-[80%]">
+        <button
+          class="h-[50px] rounded-lg border border-[#575757] w-full font-semibold text-[13px] flex items-center justify-center gap-2">
+          <img
+            class="object-cover h-6 w-6"
+            src="/images/security/google-icon.png"
+            alt="google_icon">
+          <span>Sign Up with Google</span>
+        </button>
+      </div>
+
+      <span
+        class="my-6 text-[12px] text-[#575757]">Already have an account
+          ?
+      <a class="underline font-bold"
+         routerLink="/security/process/login">Login</a>
+    </span>
+    </div>
+  </div>
+</div>

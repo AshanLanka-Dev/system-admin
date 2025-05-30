@@ -1,0 +1,17 @@
+.header-outer{
+  width: 100%;
+  min-height: 45px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+
+
+  span{
+    padding-left: 15px;
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

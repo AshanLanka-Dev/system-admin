@@ -1,0 +1,32 @@
+:host ::ng-deep {
+  // Indicators container
+  .p-carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  // First, style all indicators
+  .p-carousel-indicator button {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50%;
+    background-color: #9C9C9C !important; // Default red
+    opacity: 0.5;
+    transition: all 0.3s ease-in-out;
+    border: none !important;
+  }
+
+  // Then, style the active indicator with higher specificity
+  .p-carousel .p-carousel-indicators .p-carousel-indicator .p-highlight button {
+    background-color: #2500fa !important; // Active dot color (Blue)
+    opacity: 1 !important;
+    transform: scale(1.3);
+  }
+
+  // Optional: Hover effect
+  .p-carousel-indicator button:hover {
+    transform: scale(1.2);
+    background-color: #FFFFFF !important;
+  }
+}

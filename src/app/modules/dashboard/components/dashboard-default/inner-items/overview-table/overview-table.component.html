@@ -1,0 +1,105 @@
+
+<div class="table-outer">
+  <h2> Overview </h2>
+  <div class="card">
+    <p-table [columns]="cols" [value]="courses" >
+
+      <!-- Table Header -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of cols">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-rowData>
+        <tr class="table-row" (click)="onRowClick(rowData)">
+          <td *ngFor="let col of cols">
+
+            <!-- Course Image -->
+            <ng-container  *ngIf="col.field === 'lecture'">
+              <div class="lecture-outer">
+                <div class="dp-outer">
+                  <img [src]="rowData?.lectureAvatar || 'assets/images/placeholder.png'"
+                       alt="Course Image"  *ngIf="rowData?.lectureAvatar; else noImage">
+                </div>
+
+                <p class="course-title"> {{ rowData?.lecture }} </p>
+              </div>
+
+              <ng-template #noImage>N/A</ng-template>
+            </ng-container>
+
+
+            <ng-container *ngIf="col.field === 'paymentMethod'">
+              <div class="payment" *ngIf="rowData?.paymentMethod; else NopaymentMethod">
+                <img
+                  src="https://s3-alpha-sig.figma.com/img/bec4/d6d8/582ecbff2744ac2492330c95264813a3?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=cA-xfmeFd9hl8gRya7fuG8BRhvZr4plVOsRc4CuojM0TMLfkpGqQbTFVk~O9TgHdP7ZM~iPRmZYJwKm2Kayr-Y1r1Qb71fopKGAqYnmo~5XO79pvrsi0RK4xksWJ1DsYvD4eX43z45Tnlnhlkg9sxhpOOn1OWnrv72JmZQXU8MKypJbRxfIt1~xckupYZK6TFilbzP2Fkbl-Nb-HypEpWLoNm5Nc9imEqyX9FOXvZixqaIWKV6B5WhUVV9i31HR8F6X2TgnrHYR0COtu1Vd5ynZahwOf-ibm-r1Pr-UQYrNMyfjaVajeUQnjLXh9Ge3oDKomWq1IjA93X45KKSIPEQ__"
+                  width="40px" alt="visa-icon">
+                <span> {{ rowData?.paymentMethod }}</span>
+              </div>
+              <!--                <button pButton label="Download" class="invoice-btn" ></button>-->
+              <ng-template #NopaymentMethod>N/A</ng-template>
+            </ng-container>
+
+
+            <ng-container *ngIf="col.field === 'action'">
+              <div class="action">
+                <span> Pending </span>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="col.field === 'assignments'">
+              <div class="assignments">
+                <span> 12 </span>
+                <img src="https://s3-alpha-sig.figma.com/img/bf1f/06cc/5c5259529ac3c26792a734a4a1ce609a?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=GUlKvnQs6PbeM950J0cvQQfJugs6CFG410U8pKh3UsicDo6Weq4Ddeol4yHXzQsnBH2H3evF5P00~aHBG03jkAlFb3pqdDQdHl5XBk9SDkklDHPI-WcYbVu~8u6-zO6O64UbjJkqBSpNqI8kqd05YkwcKNKTm7fzUxrisDuFsG4WCPWwA8jaFCOiz8mqYk-jFRiQPdyaq2frM31bRpdJ4tI0ouu07R6RpuiPVtt5CznviHEUoBocadMyn02Q3tegLGo09QyArz~QvQMxu0ZPBmVSAQGu9Gsfrz8JONEfeB4azko0XgGaMakQXc4fhviE9NW8YEZmR-l~YQK01XsB7w__" alt="">
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="col.field === 'progress'">
+              <div class="progress">
+                <div class="card">
+                  <p-progressbar [value]="20" />
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="col.field === 'studentInfo'" (click)="showDialog()">
+              <div class="student-info">
+                <i class="pi pi-eye"></i>
+              </div>
+            </ng-container>
+
+
+            <!--              <ng-container *ngIf="col.field === 'invoice'">-->
+            <!--                <button pButton label="Download" class="invoice-btn" *ngIf="rowData?.invoice; else noInvoice"></button>-->
+            <!--                <ng-template #noInvoice>N/A</ng-template>-->
+            <!--              </ng-container>-->
+
+            <!-- Default Text Content -->
+            <ng-container
+              *ngIf="col.field !== 'lecture' && col.field !== 'studentInfo' && col.field !=='assignments'  && col.field !=='progress' ">
+              {{ rowData[col.field] || 'N/A' }}
+            </ng-container>
+
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+<!--student info-->
+
+<div class="card flex justify-center">
+  <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </p-dialog>
+</div>
+
+

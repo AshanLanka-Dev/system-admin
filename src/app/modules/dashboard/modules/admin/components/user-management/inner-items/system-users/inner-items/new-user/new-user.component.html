@@ -1,0 +1,54 @@
+
+<div class="card flex flex-col items-center gap-4 w-full max-w-md">
+  <form [formGroup]="newSystemUserForm" (ngSubmit)="createAdmin()" class="w-full flex flex-col justify-start items-center gap-3">
+
+    <!-- Full Name -->
+    <p-iconfield styleClass="w-full h-[50px]">
+      <input class="w-full text-[16px] h-full !border-[#575757]" pInputText formControlName="fullName"
+             placeholder="Full Name"/>
+    </p-iconfield>
+    <div *ngIf="newSystemUserForm.get('fullName')?.touched && newSystemUserForm.get('fullName')?.invalid"
+         class="text-red-500 text-xs mt-1 w-full">
+      <div *ngIf="newSystemUserForm.get('fullName')?.errors?.['required']">Full name is required</div>
+    </div>
+
+    <!-- Email -->
+    <p-iconfield styleClass="w-full h-[50px]">
+      <input class="w-full text-[16px] h-full !border-[#575757]" pInputText formControlName="email"
+             placeholder="Email Address"/>
+    </p-iconfield>
+    <div *ngIf="newSystemUserForm.get('email')?.touched && newSystemUserForm.get('email')?.invalid"
+         class="text-red-500 text-xs mt-1 w-full">
+      <div *ngIf="newSystemUserForm.get('email')?.errors?.['required']">Email is required</div>
+      <div *ngIf="newSystemUserForm.get('email')?.errors?.['email']">Invalid email format</div>
+    </div>
+
+    <!-- Phone -->
+    <ngx-intl-tel-input
+      [cssClass]="'custom w-full !h-[50px] text-[16px] !border-[#000]'"
+      class="w-full text-[16px]"
+      [preferredCountries]="preferredCountries"
+      [enableAutoCountrySelect]="true"
+      [enablePlaceholder]="true"
+      [searchCountryFlag]="true"
+      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+      [selectFirstCountry]="true"
+      [selectedCountryISO]="CountryISO.Japan"
+      [maxLength]="15"
+      [phoneValidation]="true"
+      [separateDialCode]="separateDialCode"
+      [numberFormat]="PhoneNumberFormat.National"
+      formControlName="phone">
+    </ngx-intl-tel-input>
+    <div *ngIf="newSystemUserForm.get('phone')?.touched && newSystemUserForm.get('phone')?.invalid"
+         class="text-red-500 text-xs mt-1 w-full">
+      <div *ngIf="newSystemUserForm.get('phone')?.errors?.['required']">Phone is required</div>
+    </div>
+
+    <button  type="submit" class="p-button p-button-primary  mt-4 w-full py-2 flex items-center justify-center h-[45px]" >
+      <app-prograss-spinner [width]="'30px'" [height] = "'30px'" class="mt-1" *ngIf="loading; else submitText" ></app-prograss-spinner>
+      <ng-template #submitText> Create Admin </ng-template>
+    </button>
+
+  </form>
+</div>

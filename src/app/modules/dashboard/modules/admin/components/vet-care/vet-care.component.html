@@ -1,0 +1,21 @@
+<app-breakcrumb-for-lms
+  lastItem="Vet Care"/>
+
+<app-admin-header [header] = "'Vet Care'" ></app-admin-header>
+
+<div class="card w-full">
+  <p-tabView [activeIndex]="activeTabIndex" (onChange)="handleTabChange($event)">
+    <p-tabPanel header="Pet Queue ">
+    </p-tabPanel>
+    <p-tabPanel header="Pet Profile">
+    </p-tabPanel>
+    <p-tabPanel header="Queue History ">
+    </p-tabPanel>
+    <!--    <p-tabPanel header="Receptionists">-->
+    <!--    </p-tabPanel>-->
+  </p-tabView>
+</div>
+<div class="p-5">
+  <router-outlet></router-outlet>
+</div>
+

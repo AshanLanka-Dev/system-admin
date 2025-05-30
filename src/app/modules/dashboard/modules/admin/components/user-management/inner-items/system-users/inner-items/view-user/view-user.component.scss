@@ -1,0 +1,29 @@
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  tr:nth-child(odd) {
+    background-color: #ecf0f1;
+  }
+
+  tr:nth-child(even) {
+    background-color: #fdfdfd;
+  }
+
+  td {
+    padding: 12px;
+    border: 1px solid #ccc;
+  }
+
+  .title {
+    font-weight: 600;
+    width: 40%;
+    color: #333;
+  }
+
+  .data {
+    width: 60%;
+    color: #555;
+  }
+}

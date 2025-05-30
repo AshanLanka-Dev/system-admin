@@ -1,0 +1,5 @@
+<div class="card flex justify-start items-center gap-2" >
+  <p-toggleswitch [(ngModel)]="checked" (ngModelChange)="onToggleChange()"></p-toggleswitch>
+  <span>{{ checked ? 'Active' : 'Inactive' }}</span>
+</div>
+
