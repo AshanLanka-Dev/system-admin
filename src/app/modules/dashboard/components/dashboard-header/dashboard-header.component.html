@@ -1,18 +1,22 @@
 <div class="top-header">
   <div class="header-logo" >
-    <div class="logo-outer">
-      <img src="/images/pets.png" alt="logo">
+<!--    <img src="/images/logo.png " alt="logo">-->
+    <div class="text-2xl font-bold">LOGO</div>
+  </div>
+  <div class="right-profile ">
+    <div  class="notification  "  (click)="openQue()" >
+      <i class="pi pi-align-left">
+        <span > 10 </span>
+      </i>
     </div>
 
-    <span>Dr.AshanLanka</span>
-  </div>
-  <div class="right-profile">
-    <div  class="notification ml-10" [routerLink]="'/dashboard/process/admin/online-vet-care/request-list'">
+    <div  class="notification ml-5" [routerLink]="'/dashboard/process/admin/online-vet-care/request-list'">
       <i class="pi pi-bell">
         <span > 2 </span>
       </i>
     </div>
-    <div class="user" (click)="menu.toggle($event)">
+
+    <div class="user " (click)="menu.toggle($event)" >
       <div class="user-avatar">
         <img [src]="userAvatar || '/images/user-profile/avatar-1.png'"
              (error)="onImageError($event)"
@@ -53,5 +57,12 @@
     </div>
 
   </div>
+</div>
+
+
+<div class="card flex justify-center">
+  <p-dialog  [modal]="true" [(visible)]="visiQueDialogBox"  [style]="{ width: 'rem:50' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+ <app-queue-home></app-queue-home>
+  </p-dialog>
 </div>
 
