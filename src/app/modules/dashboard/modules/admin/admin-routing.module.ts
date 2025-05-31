@@ -18,6 +18,9 @@ import {NewVaccinesComponent} from './components/pet-profile/inner-items/new-vac
 import {VaccinationHistoryComponent} from './components/pet-profile/inner-items/vaccination-history/vaccination-history.component';
 import {MedicalHistoryComponent} from './components/pet-profile/inner-items/medical-history/medical-history.component';
 import {PetQueHistoryComponent} from './components/vet-care/inner-items/pet-que-history/pet-que-history.component';
+import {AnimalBreedsManagementComponent} from './components/animal-breeds-management/animal-breeds-management.component';
+import {AllAnimalTypesComponent} from './components/animal-breeds-management/inner-items/all-animal-types/all-animal-types.component';
+import {AllBreedsComponent} from './components/animal-breeds-management/inner-items/all-breeds/all-breeds.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard/process/admin/user-management', pathMatch: 'full'},
@@ -65,6 +68,15 @@ const routes: Routes = [
           { path: 'vaccination-history', component: VaccinationHistoryComponent },
         ] },
       { path: 'pet-profile', component: PetProfileComponent  },
+    ]
+  },
+  {path: 'animal-type-management', component: AnimalBreedsManagementComponent,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: AllAnimalTypesComponent },
+      { path: 'all-breeds', component: AllBreedsComponent },
+      { path: 'all-breeds/:animalType', component: AllBreedsComponent },
+
     ]
   },
 ];

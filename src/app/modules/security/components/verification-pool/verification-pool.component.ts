@@ -26,7 +26,7 @@ export class VerificationPoolComponent implements OnInit{
 
           setTimeout(() => {
             this.router.navigate(['/dashboard/process/home']);
-          },2500);
+          },1000);
 
     // if(this.tokenService.isAdmin() || this.tokenService.isTrainer() ){
     //   setTimeout(() => {
