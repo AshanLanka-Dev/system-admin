@@ -1,0 +1,23 @@
+<div class="buttons">
+  <!-- Add buttons if needed -->
+  <button class="refresh-btn " (click)="refreshList()">
+    <i class="fa-solid fa-arrows-rotate !text-[18px]"></i>
+  </button>
+  <!--  <button class="log-btn" (click)="toggleNewRoleLogDialog()" > View Log</button>-->
+  <button class="add-btn" (click)="toggleNewClientDialog()">
+    <i class="pi pi-plus"></i>
+    Add New Animal Type
+  </button>
+</div>
+
+
+<div class="card flex justify-center">
+  <p-dialog header="Create Animal Type"  [(visible)]="visibleNewClientDialog" [modal]="true"  (onHide)="onCreateClientDialogHide()" [style]="{ width: '25rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <!--    <app-new-role-->
+    <!--      (submitNewRole) = "submitNewRole()"-->
+    <!--    ></app-new-role>-->
+   <app-new-animal-type></app-new-animal-type>
+  </p-dialog>
+</div>
+
+
