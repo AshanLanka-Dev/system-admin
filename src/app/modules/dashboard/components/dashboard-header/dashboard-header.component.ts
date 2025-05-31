@@ -7,6 +7,11 @@ import {NgClass, NgIf} from '@angular/common';
 import {TokenService} from '../../../../services/token.service';
 import {TruncatePipe} from '../../../../pipe/truncate.pipe';
 import {Subscription} from 'rxjs';
+import {Dialog} from "primeng/dialog";
+import {
+    UpdateClientComponent
+} from "../../modules/admin/components/client-management/inner-items/all-clients/inner-items/update-client/update-client.component";
+import {QueueHomeComponent} from '../../../medical-queue/components/queue-home/queue-home.component';
 
 
 @Component({
@@ -19,6 +24,9 @@ import {Subscription} from 'rxjs';
     NgClass,
     TruncatePipe,
     NgIf,
+    Dialog,
+    UpdateClientComponent,
+    QueueHomeComponent,
   ],
   templateUrl: './dashboard-header.component.html',
   styleUrl: './dashboard-header.component.scss',
@@ -35,6 +43,8 @@ export class DashboardHeaderComponent implements OnInit, OnDestroy {
   userFullName: string = '';
   userName: string = '';
   userAvatar: string = '';
+
+  visiQueDialogBox = false;
 
   constructor(
     private tokenService: TokenService,
@@ -105,5 +115,9 @@ export class DashboardHeaderComponent implements OnInit, OnDestroy {
 
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = '/images/user-profile/avatar-1.png';
+  }
+
+  openQue(){
+    this.visiQueDialogBox = true;
   }
 }
