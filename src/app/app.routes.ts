@@ -13,6 +13,11 @@ export const routes: Routes = [
     loadChildren: () => import('./modules/user-profile/user-profile.module').then(e => e.UserProfileModule)
   },
   {
+    path: 'medical-queue',
+    // canActivate: [authGuard],
+    loadChildren: () => import('./modules/medical-queue/medical-queue.module').then(e => e.MedicalQueueModule)
+  },
+  {
     path: 'dashboard',
     // canActivate: [authGuard],
     loadChildren: () => import('./modules/dashboard/dashboard.module').then(e => e.DashboardModule)
