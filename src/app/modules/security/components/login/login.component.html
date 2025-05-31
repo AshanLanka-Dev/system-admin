@@ -75,11 +75,13 @@
 
           </button>
 
-          <button type="button" class="h-[50px] rounded-lg bg-[var(--gray-btn-color)] w-full text-white font-semibold text-[13px]">
-
-            <div class="flex items-center justify-center"> View Pet Queue </div>
-
+          <button
+            [routerLink]="'/medical-queue/process/home'"
+            type="button"
+            class="h-[50px] rounded-lg bg-[var(--gray-btn-color)] w-full text-white font-semibold text-[13px]">
+            <div class="flex items-center justify-center">View Pet Queue</div>
           </button>
+
         </div>
       </form>
 
